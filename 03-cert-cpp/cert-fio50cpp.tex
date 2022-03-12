@@ -1,0 +1,94 @@
+\subsubsection{Example: FIO50-CPP}
+
+\begin{frame}[t]{Alternating input/output (FIO50-CPP)}
+\begin{itemize}
+  \item Scenarios with undefined behavior:
+    \begin{itemize}
+      \item Receiving data from a stream followed by output to that stream
+            without intervening \cppid{std::basic\_filebuf<T>::seekoff()}.
+      \item Outputing data to a stream followed by receiving input from that stream
+            without intervening \cppid{std::basic\_filebuf<T>::seekoff()}.
+    \end{itemize}
+
+  \vfill
+  \item No other function from \cppid{std::basic\_filebuf<T>} guarantees positioning
+        and/or flushing.
+
+  \vfill
+  \item Higher level:
+    \begin{itemize}
+      \item \cppid{std::basic\_ostream<T>::seekp()}.
+      \item \cppid{std::basic\_istream<T>::seekg()}.
+      \item Inherited versions in \cppid{std::basic\_iostream} and \cppid{std::fstream}.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Acquiring a mutex}
+\begin{columns}
+
+\column{.5\textwidth}
+\begin{block}{Original}
+\begin{lstlisting}
+#include <fstream>
+#include <string>
+
+void f(const std::string & name) {
+  std::fstream file{name};
+  if (!file) {
+    // Error
+  }
+  file << "Hello";
+  std::string str;
+  file >> str;
+}
+\end{lstlisting}
+\end{block}
+
+\pause
+\column{.5\textwidth}
+\begin{block}{Compliant}
+\begin{lstlisting}[escapechar=@]
+#include <fstream>
+#include <string>
+
+void f(const std::string & name) {
+  std::fstream file{name};
+  if (!file) {
+    // Error
+  }
+  file << "Hello";
+  file.seekg(0, std::ios::beg);
+
+  std::string str;
+  file >> str;
+}
+\end{lstlisting}
+\end{block}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]{Risk assesment}
+\begin{itemize}
+  \item It may lead to undefined behavior.
+    \begin{itemize}
+      \item Severity $\rightarrow$ Low.
+    \end{itemize}
+
+  \vfill
+  \item It is likely to happen.
+    \begin{itemize}
+      \item Likelihood $\rightarrow$ Likely.
+    \end{itemize}
+
+  \vfill
+  \item May be detected by tool but need manual correction.
+    \begin{itemize}
+      \item Remediation cost $\rightarrow$ Medium.
+    \end{itemize}
+
+  \vfill
+  \item Priority 6 $\Rightarrow$ Level 2.
+\end{itemize}
+\end{frame}

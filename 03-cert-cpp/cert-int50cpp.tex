@@ -1,0 +1,116 @@
+\subsubsection{Example: INT50-CPP}
+
+\begin{frame}[t]{Enumerations and integers (INT50-CPP)}
+\begin{itemize}
+  \item Enumerations in C++.
+    \begin{itemize}
+      \item Unscoped enumerations $\rightarrow$ underlying type is not fixed.
+      \item Scoped enumerations $\rightarrow$ underlying type is fixed.
+    \end{itemize}
+
+  \vfill
+  \item An enumeration object may represent any value of the underlying type.
+    \begin{itemize}
+      \item Even if it is not a valid enumerator.
+    \end{itemize}
+
+  \vfill
+  \item When converting arithmetic value to enumeration, ensure it is a valid enumerator.
+    \begin{itemize}
+      \item Perform checks before conversion (i.e. \emph{cast}).
+      \item An integer may be not representable by the underlying type.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Bounds checking}
+\begin{columns}
+
+\column{.5\textwidth}
+\begin{block}{Original}
+\begin{lstlisting}
+enum level { low, medium, high };
+
+void print(int n) {
+  level l = static_cast<level>(n);
+  if (l<low || l>high) throw level_error;
+  //...
+}
+\end{lstlisting}
+\end{block}
+
+\pause
+\column{.5\textwidth}
+\begin{block}{Compliant}
+\begin{lstlisting}[escapechar=@]
+enum level { low, medium, high };
+
+void print(int n) {
+  @{\bf\color{red}if (n<low || n>high) throw level\_error}@;
+  level l = static_cast<level>(n);
+  //...
+}
+\end{lstlisting}
+\end{block}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[t,fragile]{Even better}
+\begin{columns}
+
+\column{.5\textwidth}
+\begin{block}{Compliant}
+\begin{lstlisting}[escapechar=@]
+enum @\textbad{class}@ level { low, medium, high };
+
+void print(int n) {
+  level l = static_cast<level>(n);
+  @{\bf\color{red}if (l<level::low || l>level::high) throw level\_error}@;
+  //...
+}
+\end{lstlisting}
+\end{block}
+
+\pause
+\column{.5\textwidth}
+\begin{block}{Compliant}
+\begin{lstlisting}[escapechar=@]
+enum level @\textbad{: int}@ { 
+  low, medium, high 
+};
+
+void print(int n) {
+  level l = static_cast<level>(n);
+  @{\bf\color{red}if (l<level::low || l>level::high) throw level\_error;}@
+  //...
+}
+\end{lstlisting}
+\end{block}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]{Risk assesment}
+\begin{itemize}
+  \item Unspecified values may result in buffer overflows and arbitrary code execution.
+    \begin{itemize}
+      \item Severity $\rightarrow$ Medium.
+    \end{itemize}
+
+  \vfill
+  \item Enumerations are rarely used for indexing into arrays.
+    \begin{itemize}
+      \item Likelihood $\rightarrow$ Unlikely.
+    \end{itemize}
+
+  \vfill
+  \item May be detected by tool but need manual correction.
+    \begin{itemize}
+      \item Remediation cost $\rightarrow$ Medium.
+    \end{itemize}
+
+  \vfill
+  \item Priority 4 $\Rightarrow$ Level 3.
+\end{itemize}
+\end{frame}

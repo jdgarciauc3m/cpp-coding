@@ -1,0 +1,119 @@
+\subsubsection{Example: DCL53-CPP}
+
+\begin{frame}[t]{Ambiguous declarations (DCL53-CPP)}
+\begin{itemize}
+  \item Cases where there is ambiguity between declaration and some other statement.
+    \begin{itemize}
+      \item The standard resolves to declaration.
+      \item That might not be clear to readers.
+    \end{itemize}
+
+  \vfill
+  \item Do not write such code.
+    \begin{itemize}
+      \item With uniform initialization it is really easy to solve.
+      \item Always use braces for initialization.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Acquiring a mutex}
+\begin{columns}
+
+\column{.5\textwidth}
+\begin{block}{Original}
+\begin{lstlisting}
+#include <mutex>
+static std::mutex m;
+static int shared_resource;
+
+void increment_by_42() {
+  std::unique_lock<std::mutex>(m);
+  shared_resource += 42;
+}
+\end{lstlisting}
+\end{block}
+
+\pause
+\column{.5\textwidth}
+\begin{block}{Compliant}
+\begin{lstlisting}[escapechar=@]
+#include <mutex>
+static std::mutex m;
+static int shared_resource;
+
+void increment_by_42() {
+  std::unique_lock<std::mutex> @{\color{red}l\{m\}}@;
+  shared_resource += 42;
+}
+\end{lstlisting}
+\end{block}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[t,fragile]{Invoking the constructor}
+\begin{columns}
+
+\column{.5\textwidth}
+\begin{block}{Original}
+\begin{lstlisting}
+#include <iostream>
+
+struct particle {
+  particle() {
+    std::cout << "Constructor\n";
+  }
+};
+
+void f() {
+  particle p();
+}
+\end{lstlisting}
+\end{block}
+
+\pause
+\column{.5\textwidth}
+\begin{block}{Compliant}
+\begin{lstlisting}[escapechar=@]
+#include <iostream>
+
+struct particle {
+  particle() {
+    std::cout << "Constructor\n";
+  }
+};
+
+void f() {
+  particle p;
+  particle q{};
+}
+\end{lstlisting}
+\end{block}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]{Risk assesment}
+\begin{itemize}
+  \item It may lead to unexpected program execution.
+    \begin{itemize}
+      \item Severity $\rightarrow$ Low.
+    \end{itemize}
+
+  \vfill
+  \item It is likely to be found during testing.
+    \begin{itemize}
+      \item Likelihood $\rightarrow$ Unlikely.
+    \end{itemize}
+
+  \vfill
+  \item May be detected by tool but need manual correction.
+    \begin{itemize}
+      \item Remediation cost $\rightarrow$ Medium.
+    \end{itemize}
+
+  \vfill
+  \item Priority 2 $\Rightarrow$ Level 3.
+\end{itemize}
+\end{frame}

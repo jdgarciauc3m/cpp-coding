@@ -1,0 +1,38 @@
+\section{Containers}
+
+\begin{frame}[t]{Rules}
+\begin{itemize}
+  \item \textgood{CTR50-CPP}: 
+        Guarantee that container indices and iterators are within the valid range.
+  \vfill
+  \item \textgood{CTR51-CPP}: 
+        Use valid references, pointers, and iterators to reference elements of a container.
+  \vfill
+  \item \textgood{CTR52-CPP}:
+        Guarantee that library functions do not overflow. 
+  \vfill
+  \item \textgood{CTR53-CPP}: 
+        Use valid iterator ranges.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Rules}
+\begin{itemize}
+  \item \textgood{CTR54-CPP}: 
+        Do not subtract iterators that do not refer to the same container.
+  \vfill
+  \item \textgood{CTR55-CPP}:
+        Do not use an additive operator on an iterator if the result would overflow. 
+  \vfill
+  \item \textgood{CTR56-CPP}: 
+        Do not use pointer arithmetic on polymorphic objects.
+  \vfill
+  \item \textgood{CTR57-CPP}: 
+        Provide a valid ordering predicate.
+  \vfill
+  \item \textgood{CTR58-CPP}: 
+        Predicate function objects should not be mutable.
+\end{itemize}
+\end{frame}
+
+\input{03-cert-cpp/cert-ctr55cpp}

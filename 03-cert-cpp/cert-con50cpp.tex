@@ -1,0 +1,94 @@
+\subsubsection{Example: CON50-CPP}
+
+\begin{frame}[t]{Destroying a mutex (CON50-CPP)}
+\begin{itemize}
+  \item Mutex are used to protect shared data from concurrent accesses.
+    \begin{itemize}
+      \item If mutex is destroyed critical sections are no longer protected.
+    \end{itemize}
+
+  \vfill
+  \item If a program destroys a \cppid{mutex} object owned by any thread
+        it is \textmark{undefined behavior}.
+    \begin{itemize}
+      \item Or if a thread terminates while owning a \cppid{mutex}.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Destroying a mutex}
+\begin{block}{Original}
+\begin{lstlisting}[basicstyle=\tiny]
+#include <mutex>
+#include <thread>
+
+constexpr int max_threads = 10;
+
+void do_work(std::size_t i, std::mutex * pm) {
+  std::lock_guard<std::mutex> lk{*pm};
+  // ...
+}
+
+std::vector<std::mutex> start() {
+  std::vector<std::thread> my_threads;
+  std::mutex m;
+
+  for (int i=0; i<max_threads; ++i) {
+    my_threads.emplace_back(do_work, i, & m)
+  }
+  return my_threads;
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[t,fragile]{Destroying a mutex}
+\begin{block}{Compliant}
+\begin{lstlisting}[basicstyle=\tiny,escapechar=@]
+#include <mutex>
+#include <thread>
+
+constexpr int max_threads = 10;
+
+void do_work(std::size_t i, std::mutex * pm) {
+  std::lock_guard<std::mutex> lk{*pm};
+  // ...
+}
+
+@{\bf\color{red}std::mutex;}@
+
+std::vector<std::mutex> start() {
+  std::vector<std::thread> my_threads;
+
+  for (int i=0; i<max_threads; ++i) {
+    my_threads.emplace_back(do_work, i, & m)
+  }
+  return my_threads;
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[t]{Risk assesment}
+\begin{itemize}
+  \item It may lead to undefined behavior with abnormal termination.
+    \begin{itemize}
+      \item Severity $\rightarrow$ Low.
+    \end{itemize}
+
+  \vfill
+  \item It is likely to happen.
+    \begin{itemize}
+      \item Likelihood $\rightarrow$ Likely.
+    \end{itemize}
+
+  \vfill
+  \item May be detected by tool with automated correction.
+    \begin{itemize}
+      \item Remediation cost $\rightarrow$ Low.
+    \end{itemize}
+
+  \vfill
+  \item Priority 9 $\Rightarrow$ Level 2.
+\end{itemize}
+\end{frame}

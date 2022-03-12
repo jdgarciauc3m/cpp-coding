@@ -1,0 +1,125 @@
+\subsubsection{Example: STR53-CPP}
+
+\begin{frame}[t,fragile]{Element access (STR53)}
+\begin{itemize}
+  \item Index operators for \cppid{std::string}:
+\begin{lstlisting}
+const_reference operator[](size_type) const;
+reference operator[](size_type);
+\end{lstlisting}
+
+  \vfill
+  \item Undefined behavior:
+    \begin{itemize}
+      \item Accessing with \cppid{pos>size()}.
+      \item Accessing with \cppid{pos==size()} and modifying the character.
+    \end{itemize}
+
+  \vfill
+  \item \textbad{Do not pass an out-of-range value as argument to operator[]}.
+    \begin{itemize}
+      \item Do not call std::string::back() or std::string::front().
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{String access}
+\begin{columns}
+
+\column{.5\textwidth}
+\begin{block}{Original}
+\begin{lstlisting}
+#include <string>
+
+extern std::size_t get_index();
+
+void f() {
+  std::string s{"hello"};
+  s[get_index()] = 'x';
+}
+\end{lstlisting}
+\end{block}
+
+\pause
+\column{.5\textwidth}
+\begin{block}{Compliant}
+\begin{lstlisting}[escapechar=@]
+#include <string>
+
+extern std::size_t get_index();
+
+void f() {
+  std::string s{"hello"};
+  try {
+    s.at(get_index()) = 'x';
+  }
+  catch (std::out_of_range &) {
+    // Handle error
+  }
+}
+\end{lstlisting}
+\end{block}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[t,fragile]{Range checking}
+\begin{block}{Original}
+\begin{lstlisting}
+#include <string>
+
+extern std::size_t get_index();
+
+void f() {
+  std::string s{"hello"};
+  std::size_t i = get_index();
+  if (i<s.length()) {
+    s[i] = 'x';
+  }
+  else {
+    // Handle error
+  }
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[t,fragile]{Checking not always needed}
+\begin{block}{Original}
+\begin{lstlisting}
+#include <string>
+
+void print_vowels(const std::string & s) {
+  for (c : s) {
+    if (is_vowel(c)) {
+      std::cout << c;
+    }
+    std::cout << "\n";
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[t]{Risk assesment}
+\begin{itemize}
+  \item It may lead to out of bounds reads and writes.
+    \begin{itemize}
+      \item Severity $\rightarrow$ High.
+    \end{itemize}
+
+  \vfill
+  \item It is likely to be found during testing.
+    \begin{itemize}
+      \item Likelihood $\rightarrow$ Unlikely.
+    \end{itemize}
+
+  \vfill
+  \item May be detected by tool but need manual correction.
+    \begin{itemize}
+      \item Remediation cost $\rightarrow$ Medium.
+    \end{itemize}
+
+  \vfill
+  \item Priority 6 $\Rightarrow$ Level 2.
+\end{itemize}
+\end{frame}

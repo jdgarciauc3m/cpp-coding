@@ -1,0 +1,19 @@
+\section{Characters and strings}
+
+\begin{frame}[t]{Rules}
+\begin{itemize}
+  \item \textgood{STR50-CPP}: 
+        Guarantee that storage for strings has sufficient space for character and null terminator.
+  \vfill
+  \item \textgood{STR51-CPP}: 
+        Do not attempt to create a \cppid{std::string} from a null pointer.
+  \vfill
+  \item \textgood{STR52-CPP}: 
+        Use valid references, pointers, and iterators to reference elements of a \cppid{basic\_string}.
+  \vfill
+  \item \textgood{STR53-CPP}: 
+        Range check element access.
+\end{itemize}
+\end{frame}
+
+\input{03-cert-cpp/cert-str53cpp}

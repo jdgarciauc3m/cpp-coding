@@ -1,0 +1,137 @@
+\subsubsection{Example: MEM56-CPP}
+
+\begin{frame}[t]{Owned pointers and smart pointers (MEM56-CPP)}
+\begin{itemize}
+  \item Smart pointers (e.g.: \cppid{std::unique\_ptr}, \cppid{std::shared\_ptr})
+        include ownership as part of resource management.
+    \begin{itemize}
+      \item If you pass a pointer to the constructor, memory is now \textmark{owned}
+            by the created smart pointer.
+    \end{itemize}
+
+  \vfill
+  \item Getting back the ownership of a \cppid{std::unique\_ptr}:
+    \begin{itemize}
+      \item \cppid{p.release()}.
+    \end{itemize}
+
+  \vfill 
+  \item Getting the pointer but the \cppid{std::unique\_ptr} stills own it:
+    \begin{itemize}
+      \item \cppid{p.get()}.
+    \end{itemize}
+
+  \vfill
+  \item The pointerin a \cppid{std::shared\_ptr} is changed but the old one is released:
+    \begin{itemize}
+      \item \cppid{p.reset(ptr)}.
+    \end{itemize}    
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Using \cppid{shared\_ptr}}
+\begin{columns}
+
+\column{.5\textwidth}
+\begin{block}{Original}
+\begin{lstlisting}
+#include <memory>
+
+void f() {
+  int * p = new int;
+  std::shared_ptr<int> q1{p};
+  std::shared_ptr<int> q2{p};
+  //...
+}
+\end{lstlisting}
+\end{block}
+
+\pause
+\column{.5\textwidth}
+\begin{block}{Compliant}
+\begin{lstlisting}[escapechar=@]
+#include <memory>
+
+void f() {
+  int * p = new int;
+  auto q1 = make_shared<int>();
+  auto q2 = q1;
+  //...
+}
+\end{lstlisting}
+\end{block}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[t,fragile]{More subtle example}
+\begin{block}{Original}
+\begin{lstlisting}
+#include <memory>
+
+struct B {
+  virtual ~B() = default;
+};
+
+struct D : B {};
+
+void g(std::shared_ptr<D> pder);
+
+void f() {
+  std::shared_ptr<B> poly{new D};
+  g(std::shared_ptr<D>{dynamic_cast<D*>(poly.get())});
+}
+\end{lstlisting}
+\end{block}
+\vfill
+\begin{itemize}
+  \item Passing to \cppid{g()} a \cppid{shared\_ptr<D>} built from the
+        internal pointer of \cppid{poly}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Using dynamic\_pointer\_cast<>}
+\begin{block}{Compliant}
+\begin{lstlisting}[escapechar=@]
+#include <memory>
+
+struct B {
+  virtual ~B() = default;
+};
+
+struct D : B {};
+
+void g(std::shared_ptr<D> pder);
+
+void f() {
+  std::shared_ptr<B> poly{new D};
+  g(@{\bf\color{red}dynamic\_pointer\_cast}@<D,B>(poly));
+}
+\end{lstlisting}
+\end{block}
+\vfill
+\end{frame}
+
+\begin{frame}[t]{Risk assesment}
+\begin{itemize}
+  \item It may lead to double free or to a deallocation by a not matching allocation.
+    \begin{itemize}
+      \item Severity $\rightarrow$ High.
+    \end{itemize}
+
+  \vfill
+  \item It is difficult to find.
+    \begin{itemize}
+      \item Likelihood $\rightarrow$ Likely.
+    \end{itemize}
+
+  \vfill
+  \item May be detected by tool but need manual correction.
+    \begin{itemize}
+      \item Remediation cost $\rightarrow$ Medium.
+    \end{itemize}
+
+  \vfill
+  \item Priority 18 $\Rightarrow$ Level 1.
+\end{itemize}
+\end{frame}

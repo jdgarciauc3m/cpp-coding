@@ -1,0 +1,102 @@
+\subsubsection{Example: EXP50-CPP}
+
+\begin{frame}{Order of evaluation (EXP50-CPP)}
+\begin{itemize}
+  \item The order in which side-effects happen in an expression is not
+        always sequenced.
+
+  \vfill
+  \item This can very easily lead to \textmark{undefined behavior}.
+
+  \vfill
+  \item Even the most experts may end up making those mistakes.
+
+  \vfill
+  \item \textbad{Never depend on order of evaluation}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Order in expressions}
+\begin{columns}
+
+\column{.5\textwidth}
+\begin{block}{Original}
+\begin{lstlisting}
+void f(int i, const int * v) {
+  int x = i + v[++i];
+  //...
+}
+\end{lstlisting}
+\end{block}
+
+\pause
+\column{.5\textwidth}
+\begin{block}{Compliant}
+\begin{lstlisting}[escapechar=@]
+void f(int i, const int * v) {
+  @\textbad{++i}@;
+  int x = i + v[@\textbad{i}@];
+  //...
+}
+\end{lstlisting}
+\end{block}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[t,fragile]{Complex expressions}
+\begin{block}{Original}
+\begin{lstlisting}
+void f() {
+  std::string s = "but I have heard it works even if you don't believe it";
+  s.replace(0, 4, "" ).replace(
+    s.find("even"), 4, "only").replace(
+      s. find(" don't"), 6, "");
+  assert(s == "I have heard it works only if you believe it") ;
+  //...
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[t,fragile]{Complex expressions}
+\begin{block}{Compliant}
+\begin{lstlisting}
+void f() {
+  std::string s = "but I have heard it works even if you don't believe it";
+  s.replace(0, 4, "");
+  auto pos = s.find("even");
+  s.replace(pos1, 4, "only");
+  pos = s.find(" don't");
+  s.replace(pos, 6, "");
+  assert(s == "I have heard it works only if you believe it") ;
+  //...
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[t]{Risk assesment}
+\begin{itemize}
+  \item It may lead to an object taking an unexpected value.
+    \begin{itemize}
+      \item Severity $\rightarrow$ Medium.
+    \end{itemize}
+
+  \vfill
+   \item It is likely to happen.
+   \begin{itemize}
+      \item Likelihood $\rightarrow$ Probable.
+    \end{itemize}
+
+  \vfill
+  \item May be detected by tool but need manual correction.
+    \begin{itemize}
+      \item Remediation cost $\rightarrow$ Medium.
+    \end{itemize}
+
+  \vfill
+  \item Priority 8 $\Rightarrow$ Level 2.
+\end{itemize}
+\end{frame}
+

@@ -1,0 +1,81 @@
+\subsubsection{Example: OOP52-CPP}
+
+\begin{frame}[t]{Virtual destructor (OOP52-CPP)}
+\begin{itemize}
+  \item Deleting a polymorphic pointer needs that the destructor is
+        \cppkey{virtual} in the base class.
+    \begin{itemize}
+      \item Otherwise the behavior is undefined.
+    \end{itemize}
+
+  \vfill
+  \item The implicitly declared destructor is not \cppkey{virtual} even
+        if the base class has other \cppkey{virtual} functions.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Virtual destructor}
+\begin{columns}
+
+\column{.5\textwidth}
+\begin{block}{Original}
+\begin{lstlisting}
+struct base {
+  virtual void f();
+};
+
+struct derived : base {};
+
+void f() {
+  std::unique_ptr<base> p = 
+    make_unique<derived>();
+  //...
+}
+\end{lstlisting}
+\end{block}
+
+\pause
+\column{.5\textwidth}
+\begin{block}{Compliant}
+\begin{lstlisting}[escapechar=@]
+struct base {
+  @{\bf\color{red}virtual ~base() = default;}@
+  virtual void f();
+};
+
+struct derived : base {};
+
+void f() {
+  std::unique_ptr<base> p = 
+    make_unique<derived>();
+  //...
+}
+\end{lstlisting}
+\end{block}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]{Risk assesment}
+\begin{itemize}
+  \item It may lead to undefined behavior with abnormal termination.
+    \begin{itemize}
+      \item Severity $\rightarrow$ Low.
+    \end{itemize}
+
+  \vfill
+  \item It is likely to happen.
+    \begin{itemize}
+      \item Likelihood $\rightarrow$ Likely.
+    \end{itemize}
+
+  \vfill
+  \item May be detected by tool with automated correction.
+    \begin{itemize}
+      \item Remediation cost $\rightarrow$ Low.
+    \end{itemize}
+
+  \vfill
+  \item Priority 9 $\Rightarrow$ Level 2.
+\end{itemize}
+\end{frame}

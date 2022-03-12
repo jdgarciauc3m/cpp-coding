@@ -1,0 +1,12 @@
+VULN_BASE= 01-vuln
+VULN_PARTS= \
+$(VULN_BASE)/*.tex  \
+metadata.tex \
+license-cc.tex
+
+VULN_PDF=$(VULN_BASE).pdf
+
+FINAL_VULN_PDF=$(FINAL_DIR)/$(VULN_PDF)
+
+ALL_PARTS += $(VULN_PARTS) 
+ALL_SLIDES_FINAL_PDF += $(FINAL_DIR)/$(VULN_PDF)

@@ -1,0 +1,103 @@
+\subsection{CERT C++ Secure coding}
+
+\begin{frame}[t]{Goal}
+\begin{itemize}
+  \item To develop safe, reliable and secure systems.
+    \begin{itemize}
+      \item Example: Eliminate undefined behaviour.
+    \end{itemize}
+
+  \vfill
+  \item Conformant is a necessary condition for safety, reliability, and security.
+    \begin{itemize}
+      \item But is not sufficient.
+    \end{itemize}
+
+  \vfill
+  \item CERT C++ Coding Standard specifically targets C++14.
+
+  \vfill
+  \item Issues not addressed.
+    \begin{itemize}
+      \item Coding style.
+      \item Controversial rules.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Classifying rules}
+\begin{itemize}
+  \item \textgood{Severity}: How serious are consequences?
+    \begin{itemize}
+      \item \textmark{Low} (1): Denial of service attack, abnormal termination.
+      \item \textmark{Medium} (2): Data integrity violation, unintentional information disclosure.
+      \item \textmark{High} (3): Run arbitrary code.
+    \end{itemize}
+
+  \vfill\pause
+  \item \textgood{Likelihood}: How likely is that a flaw introduced by ignoring the rule
+        can lead to exploitable vulnerability?
+    \begin{itemize}
+      \item \textmark{Unlikely} (1).
+      \item \textmark{Probable} (2).
+      \item \textmark{Likely} (3).
+    \end{itemize}
+
+  \vfill\pause
+  \item \textgood{Remediation cost}:
+    \begin{itemize}
+      \item \textmark{High} (1): Manual dectection and manual correction.
+      \item \textmark{Medium} (2): Automatic detection and manual correction.
+      \item \textmark{Low} (3): Automatic detection and automatic correction.
+    \end{itemize} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Priorities and levels}
+\begin{itemize}
+  \item Computing priorities.
+    \begin{itemize}
+      \item Product of \textmark{severity}, \textmark{likelihood}, and 
+            \textmark{remediation cost}.
+    \end{itemize}
+
+  \vfill\pause
+  \item \textgood{Levels}:
+    \begin{itemize}
+      \item \textmark{L1} (12, 18, 27): 
+        \begin{itemize}
+          \item High severity.
+          \item Likely.
+          \item Inexpensive repair.
+        \end{itemize}
+      \item \textmark{L2} (6, 8, 9): 
+        \begin{itemize}
+          \item Medium severity.
+          \item Probable.
+          \item Medium repair cost.
+        \end{itemize}
+      \item \textmark{L3} (1, 2, 3, 4): 
+        \begin{itemize}
+          \item Low severity.
+          \item Unlikely.
+          \item Expensive repair.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Categories}
+\begin{itemize}
+  \item \textgood{DCL} Declarations and initializations: 10 rules
+  \item \textgood{EXP} Expressions. 14 rules.
+  \item \textgood{INT} Integers: 1 rule.
+  \item \textgood{CTR} Containers: 9 rules.
+  \item \textgood{STR} Characters and strings: 5 rules.
+  \item \textgood{MEM} Memory management: 8 rules.
+  \item \textgood{FIO} Input/output: 2 rules.
+  \item \textgood{ERR} Execptions and error handling: 13 rules.
+  \item \textgood{OOP} Object oriented programming: 9 rules.
+  \item \textgood{CON} Concurrency: 7 rules.
+  \item \textgood{MSC} Miscellaneous: 5 rules.
+\end{itemize}
+\end{frame} 

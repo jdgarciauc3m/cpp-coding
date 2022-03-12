@@ -1,0 +1,34 @@
+\section{Declarations and initialization}
+
+\begin{frame}[t]{Rules}
+\begin{itemize}
+  \item \textgood{DCL50-CPP}: Do not define a C-style variadic function.
+  \vfill
+  \item \textgood{DCL51-CPP}: Do not declare or define a reserved identifier.
+  \vfill
+  \item \textgood{DCL52-CPP}: Never qualify a reference type with const or volatile.
+  \vfill
+  \item \textgood{DCL53-CPP}: Do not write syntactically ambiguous declarations.
+  \vfill
+  \item \textgood{DCL54-CPP}: Overload allocation and deallocation functions as a pair in the same scope.
+  \vfill
+  \item \textgood{DCL55-CPP}: Avoid information leakage when passing class across a trust boundary.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[t]{Rules}
+\begin{itemize}
+  \item \textgood{DCL56-CPP}: Avoid cycles during initialization of static objects.
+  \vfill
+  \item \textgood{DCL57-CPP}: Do not let exceptions escape from destructors or deallocation functions.
+  \vfill
+  \item \textgood{DCL58-CPP}: Do not modify the standard namespace.
+  \vfill
+  \item \textgood{DCL59-CPP}: Do not define an unnamed namespace in a header file.
+  \vfill
+  \item \textgood{DCL60-CPP}: Obey the one definition rule
+\end{itemize}
+\end{frame}
+
+\input{03-cert-cpp/cert-dcl53cpp.tex}

@@ -1,0 +1,54 @@
+\section{Exceptions and error handling}
+
+\begin{frame}[t]{Rules}
+\begin{itemize}
+  \item \textgood{ERR50-CPP}: 
+        Do not abruptly terminate the program.
+  \vfill
+  \item \textgood{ERR51-CPP}: 
+        Handle all exceptions.
+  \vfill
+  \item \textgood{ERR52-CPP}: 
+        Do not use \cppid{setjmp()} or \cppid{longjmp()}.
+  \vfill
+  \item \textgood{ERR53-CPP}: 
+        Do not reference base classes or class data members in a constructor
+        or destructor function try-block handler
+  \vfill
+  \item \textgood{ERR54-CPP}: 
+        Catch handlers should order their parameters types from most derived type to least
+        derived.
+  \vfill
+  \item \textgood{ERR55-CPP}: 
+        Honor exceptions speceficiations.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[t]{Rules}
+\begin{itemize}
+  \vfill
+  \item \textgood{ERR56-CPP}: 
+        Guarantee exceptions safety.
+  \vfill
+  \item \textgood{ERR57-CPP}: 
+        Do not leak resources when handling exceptions.
+  \vfill
+  \item \textgood{ERR58-CPP}: 
+        Handle all exceptions throw before main begins executing.
+  \vfill
+  \item \textgood{ERR59-CPP}: 
+        Do not throw an exception across execution boundaries.
+  \vfill
+  \item \textgood{ERR60-CPP}: 
+        Exception objects must be nothrow constructible.
+  \vfill
+  \item \textgood{ERR61-CPP}: 
+        Catch exceptions by l-value reference.
+  \vfill
+  \item \textgood{ERR62-CPP}: 
+        Detect errors when converting a string to a number.
+\end{itemize}
+\end{frame}
+
+\input{03-cert-cpp/cert-err53cpp}

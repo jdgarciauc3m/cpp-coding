@@ -1,0 +1,38 @@
+\section{Object Oriented Programming}
+
+\begin{frame}[t]{Rules}
+\begin{itemize}
+  \item \textgood{OOP50-CPP}: 
+        Do not invoke virtual functions from constructors or destructors.
+  \vfill
+  \item \textgood{OOP51-CPP}: 
+        Do not slice derived objects.
+  \vfill
+  \item \textgood{OOP52-CPP}: 
+        Do not delete a polymorphic object without a virtual destructor.
+  \vfill
+  \item \textgood{OOP53-CPP}: 
+        Write constructor member initializers in the canonical order.
+  \vfill
+  \item \textgood{OOP54-CPP}: 
+        Gracefully handle self-copy assignment.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Rules}
+\begin{itemize}
+  \item \textgood{OOP55-CPP}: 
+        Do not use pointer-to member operators to access non-existent members.
+  \vfill
+  \item \textgood{OOP56-CPP}: 
+        Honor replacement handler requirements.
+  \vfill
+  \item \textgood{OOP57-CPP}: 
+        Prefer special member functions and overloaded operators to C Standard Library functions.
+  \vfill
+  \item \textgood{OOP58-CPP}: 
+        Copy operations must not mutate the source object.
+\end{itemize}
+\end{frame}
+
+\input{03-cert-cpp/cert-oop52cpp}

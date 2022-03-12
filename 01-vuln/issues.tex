@@ -1,0 +1,88 @@
+\section{Vulnerability issues}
+
+\begin{frame}[t]{Predictable execution}
+\begin{itemize}
+  \item Why doesn't software do what I expect?
+    \begin{itemize}
+      \item Incorrect specifications.
+      \item Configuration management mistakes.
+      \item \ldots
+      \item Unexpected behaviour of programming language.
+    \end{itemize}
+
+  \vfill\pause
+  \item What is \textmark{predictable execution}?
+    \begin{itemize}
+      \item Property of a program.
+      \item All possible executions have results that can be predicted from examination 
+            of source code.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Getting predictable software}
+\begin{itemize}
+  \item Software may be used:
+    \begin{itemize}
+      \item On unanticipated platforms.
+      \item On unanticipated ways.
+      \item On unanticipated contexts.
+      \item By unanticipated users.
+    \end{itemize}
+
+  \vfill
+  \item Additionally:
+    \begin{itemize}
+      \item We are in a connected world.
+      \item Cyberattacks!
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Software vulnerabilities}
+\begin{itemize}
+  \item \textmark{Software vulnerability}: \textbad{Unwanted} characteristic of software
+        that may allow software to execute in ways that are unexpected.
+
+    \begin{itemize}
+      \item Programmers introduce vulnerabilities by using language features that are
+            unpredictable.
+    \end{itemize}
+
+  \vfill\pause
+  \item \textmark{Language vulnerability}: Property of a programming language that can
+        contribute to application vulnerabilities.
+    \begin{itemize}
+      \item Security weakness.
+      \item Safety hazard.
+      \item Software defect.
+    \end{itemize}
+
+  \vfill\pause
+  \item \textgood{Example}:
+    \begin{itemize}
+      \item \textbad{Language vulnerability}: String copy does not check length.
+      \item \textbad{Application vulnerability}: Stack attack through buffer overrun.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Sources of unpredictability}
+\begin{itemize}
+  \item Incomplete or evolving specifications.
+  \item Undefined behaviour.
+  \item Unspecified behaviour.
+  \item Implementation defined behaviour.
+  \item Difficult features.
+  \item Inadequate language support.
+
+  \vfill\pause
+  \item Additionally:
+    \begin{itemize}
+      \item Porting to other platforms.
+      \item Compilers might also have bugs.
+      \item Use of different compiler switches.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+

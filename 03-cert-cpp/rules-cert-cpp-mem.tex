@@ -1,0 +1,36 @@
+\section{Memory management}
+
+\begin{frame}[t]{Rules}
+\begin{itemize}
+  \item \textgood{MEM50-CPP}: 
+        Do not access freed memory.
+  \vfill
+  \item \textgood{MEM51-CPP}: 
+        Properly deallocate dynamically allocated resources.
+  \vfill
+  \item \textgood{MEM52-CPP}: 
+        Detect and handle memory allocation errors.
+  \vfill
+  \item \textgood{MEM53-CPP}: 
+        Explicitly construct and destruct objects when manually managing object lifetime.
+  \vfill
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Rules}
+\begin{itemize}
+  \item \textgood{MEM54-CPP}: 
+        Provide placement new with properly aligned pointers to sufficient storage capacity.
+  \vfill
+  \item \textgood{MEM55-CPP}: 
+        Honor replacement dynamic storage management requirements.
+  \vfill
+  \item \textgood{MEM56-CPP}: 
+        Do not store an already-owned pointer value in an unrelated smart pointer
+  \vfill
+  \item \textgood{MEM57-CPP}: 
+        Avoid using default operator new for over-aligned types.
+\end{itemize}
+\end{frame}
+
+\input{03-cert-cpp/cert-mem56cpp}

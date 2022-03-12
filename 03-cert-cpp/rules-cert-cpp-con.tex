@@ -1,0 +1,28 @@
+\section{Concurrency}
+
+\begin{frame}[t]{Rules}
+\begin{itemize}
+  \item \textgood{CON50-CPP}: 
+        Do not destroy a mutex while it is locked.
+  \vfill
+  \item \textgood{CON51-CPP}: 
+        Ensure actively held locks are released on exceptional conditions.
+  \vfill
+  \item \textgood{CON52-CPP}: 
+        Prevent data races whe accessing bit fields from multiple threads.
+  \vfill
+  \item \textgood{CON53-CPP}: 
+        Avoid deadlock by locking in a predefined order.
+  \vfill
+  \item \textgood{CON54-CPP}: 
+        Wrap functions that can spuriously wake up in a loop.
+  \vfill
+  \item \textgood{CON55-CPP}: 
+        Preserve thread safety and liveness when using condtion variables.
+  \vfill
+  \item \textgood{CON56-CPP}: 
+        Do not speculatively lock a non-recursive mutex that is already owned by the calling thread.
+\end{itemize}
+\end{frame}
+
+\input{03-cert-cpp/cert-con50cpp}

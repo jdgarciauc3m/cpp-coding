@@ -1,0 +1,74 @@
+\subsubsection{Example: CTR55-CPP}
+
+\begin{frame}[t]{Additive operators on iterators (CTR55-CPP)}
+\begin{itemize}
+  \item Integral values may be added to or subtracted from a pointer.
+    \begin{itemize}
+      \item If the result is outside the range of the container behavior is undefined.
+    \end{itemize}
+
+  \vfill
+  \item The same applies to random access iterators.
+
+  \vfill
+  \item \textbad{Do not allow adding an integral expression to a pointer or random
+        access iterator if the result would overflow the bounds of the pointer}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Printing 20 first values}
+\begin{block}{Original}
+\begin{lstlisting}
+#include <iostream>
+#include <vector>
+
+void print_20(const std::vector<int> & v) {
+  for (auto i=v.begin(), e=i+20; i!=e; ++i) {
+    std::cout << *i << std::endl;
+  }
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[t,fragile]{Printing 20 first values}
+\begin{block}{Compliant}
+\begin{lstlisting}[escapechar=@]
+#include <iostream>
+#include <vector>
+
+void print_20(const std::vector<int> & v) {
+  @{\bf\color{red}constexpr std::vector<int>::size\_type max\_size = 20;}@
+  for (auto i=v.begin(), e=i+@{\bf\color{red}std::min(max\_size,v.size())}@; i!=e; ++i) {
+    std::cout << *i << std::endl;
+  }
+}
+\end{lstlisting}
+\end{block}
+
+\end{frame}
+
+\begin{frame}[t]{Risk assesment}
+\begin{itemize}
+  \item The behaviour is undefined, but frequently leads to \textbad{buffer overflow}
+        or \textbad{buffer underrun}.
+    \begin{itemize}
+      \item Severity $\rightarrow$ High.
+    \end{itemize}
+
+  \vfill
+  \item It is likely that is not found.
+    \begin{itemize}
+      \item Likelihood $\rightarrow$ Likely.
+    \end{itemize}
+
+  \vfill
+  \item May be detected by tool but need manual correction.
+    \begin{itemize}
+      \item Remediation cost $\rightarrow$ Medium.
+    \end{itemize}
+
+  \vfill
+  \item Priority 18 $\Rightarrow$ Level 1.
+\end{itemize}
+\end{frame}

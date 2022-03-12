@@ -1,0 +1,79 @@
+\subsubsection{Example: ERR53-CPP}
+
+\begin{frame}[t]{Constructors/Destructors and try blocks (ERR53-CPP)}
+\begin{itemize}
+  \item Referring a non-static member or base member for a function try/block 
+        in a constructor or destructor is \textmark{undefined behavior}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Constructor and try}
+\begin{columns}
+
+\column{.5\textwidth}
+\begin{block}{Original}
+\begin{lstlisting}
+#include <string>
+
+class C {
+  std::string str;
+public:
+  C(const std::string & s) try : str{s} {
+    // ...
+  }
+  catch (...) {
+    if (!str.empty()) {
+      //...
+    }
+  }
+};
+\end{lstlisting}
+\end{block}
+
+\pause
+\column{.5\textwidth}
+\begin{block}{Compliant}
+\begin{lstlisting}[escapechar=@]
+#include <string>
+
+class C {
+  std::string str;
+public:
+  C(const std::string & s) try : str{s} {
+    // ...
+  }
+  catch (...) {
+    if (!@{\bf\color{red}s}@.empty()) {
+      //...
+    }
+  }
+};
+\end{lstlisting}
+\end{block}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]{Risk assesment}
+\begin{itemize}
+  \item It may lead to undefined behavior.
+    \begin{itemize}
+      \item Severity $\rightarrow$ Low.
+    \end{itemize}
+
+  \vfill
+  \item It is likely to be found.
+    \begin{itemize}
+      \item Likelihood $\rightarrow$ Unlikely.
+    \end{itemize}
+
+  \vfill
+  \item May be detected by tool but need manual correction.
+    \begin{itemize}
+      \item Remediation cost $\rightarrow$ Medium.
+    \end{itemize}
+
+  \vfill
+  \item Priority 2 $\Rightarrow$ Level 3.
+\end{itemize}
+\end{frame}

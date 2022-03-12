@@ -1,0 +1,58 @@
+\section{Expressions}
+
+\begin{frame}[t]{Rules}
+\begin{itemize}
+  \item \textgood{EXP50-CPP}: 
+        Do not depend on the order of evaluation for side effects.
+  \vfill
+  \item \textgood{EXP51-CPP}: 
+        Do not delete an array through a pointer of incorrect type.
+  \vfill
+  \item \textgood{EXP52-CPP}: 
+        Do not rely on the side effects in unevaluated operands.
+  \vfill
+  \item \textgood{EXP53-CPP}:
+        Do not read uninitialized memory.
+  \vfill
+  \item \textgood{EXP54-CPP}:
+        Do not access an object outside of its lifetime. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Rules}
+\begin{itemize}
+  \item \textgood{EXP55-CPP}:
+        Do not access a cv-qualified through a cv-unqualified type. 
+  \vfill
+  \item \textgood{EXP56-CPP}:
+        Do not call a function with a mismatched language linkage. 
+  \vfill
+  \item \textgood{EXP57-CPP}: 
+        Do not cast or delete pointers to incomplete classes.
+  \vfill
+  \item \textgood{EXP58-CPP}:
+        Pass an object of the correct type to \cppid{va\_start}. 
+  \vfill
+  \item \textgood{EXP59-CPP}: 
+        Use \cppid{offsetof()} on valid types and members.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Rules}
+\begin{itemize}
+  \item \textgood{EXP60-CPP}: 
+        Do not pass a non-standard-layout type object across execution boundaries. 
+  \vfill
+  \item \textgood{EXP61-CPP}:
+        A lambda object must not outlive any of its reference captured objects. 
+  \vfill
+  \item \textgood{EXP62-CPP}:
+        Do not access the bits of an object representation that are not part
+        of object's value representation. 
+  \vfill
+  \item \textgood{EXP63-CPP}: 
+        Do not rely on the value of a moved-from object.
+\end{itemize}
+\end{frame}
+
+\input{03-cert-cpp/cert-exp50cpp}

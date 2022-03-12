@@ -1,0 +1,22 @@
+\section{Miscellaneous}
+
+\begin{frame}[t]{Rules}
+\begin{itemize}
+  \item \textgood{MSC50-CPP}: 
+        Do not use \cppid{rand()} for generating pseudorandom numbers.
+  \vfill
+  \item \textgood{MSC50-CPP}: 
+        Ensure that your random number generator is properly seeded.
+  \vfill
+  \item \textgood{MSC50-CPP}: 
+        Value-returning functions must return a value from all exit paths.
+  \vfill
+  \item \textgood{MSC50-CPP}: 
+        Do not return from a function declared \cppkey{[[noreturn]]}
+  \vfill
+  \item \textgood{MSC50-CPP}: 
+        A signal handler must be a plain old function.
+\end{itemize}
+\end{frame}
+
+\input{03-cert-cpp/cert-msc50cpp}

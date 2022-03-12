@@ -1,0 +1,2 @@
+$(FINAL_VULN_PDF): $(VULN_PARTS) $(CONFIG_INPUT) $(IMG_INPUT)
+	$(LATEXMK) -jobname=$(VULN_BASE) $(VULN_BASE)/slides.tex
