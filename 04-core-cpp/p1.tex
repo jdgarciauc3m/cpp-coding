@@ -1,0 +1,105 @@
+\subsection{P.1: Express ideas directly in code}
+
+\begin{frame}[t,fragile]{Express ideas in code}
+\begin{itemize}
+  \item Why?
+    \begin{itemize}
+      \item Comments (or design documents) are not always in synch with code.
+      \item Code has defined semantics.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item Implications:
+    \begin{itemize}
+      \item This philosophical principle has many ramifications.
+      \item Some of them are difficult to enforce.
+    \end{itemize}
+\end{itemize}
+
+\mode<presentation>{\vfill\pause}
+\begin{columns}
+
+\column{.5\textwidth}
+\begin{block}{Bad}
+\begin{lstlisting}
+class date {
+public:
+  int month();
+  //...
+};
+\end{lstlisting}
+\end{block}
+
+\pause
+\column{.5\textwidth}
+\begin{block}{Good}
+\begin{lstlisting}[escapechar=@]
+class date {
+public:
+  @\color{red}month\_id@ month()@\color{red}const@;
+  //...
+};
+\end{lstlisting}
+\end{block}
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[t,fragile]{Use code to express intent}
+\begin{itemize}
+  \item The standard library helps to better express intent.
+
+\pause
+\begin{block}{Bad}
+\begin{lstlisting}
+double f(const std::vector<double> & v) {
+  double s = 0.0;
+  for (std::size_t i=0; i<v.size(); ++i) {
+    x += v[i];
+  }
+  return s / v.size();
+}
+\end{lstlisting}
+\end{block}
+
+\pause
+\begin{block}{Good}
+\begin{lstlisting}
+double average(const std::vector<double> & v) {
+  double s = std::reduce(v.begin(), v.end());
+  return s / v.size();
+}
+\end{lstlisting}
+\end{block}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Enforcement}
+\begin{itemize}
+  \item Very hard to enforce in general.
+
+  \mode<presentation>{\vfill\pause}
+  \item Some particular enforcements:
+    \begin{itemize}
+      \item Use const consistently.
+        \begin{itemize}
+          \item Flag non const function with const behaviour. 
+          \item Flag non const reference pointer arguments that are not modified.
+        \end{itemize}
+
+      \pause
+      \item Flag uses of casts.
+        \begin{itemize}
+          \item Casts are a way to bypass the type system.
+        \end{itemize}
+      \pause
+      \item Try to detect code that mimics standard library.
+        \begin{itemize}
+          \item Many loops better expressed by standard algorithms.
+          \item Very difficult to detect.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\end{frame}

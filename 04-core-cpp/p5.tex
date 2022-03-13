@@ -1,0 +1,33 @@
+\subsection{P.5: Prefer compile-time checking to run-time checking}
+
+\begin{frame}[t,fragile]{Compile time checking}
+\begin{itemize}
+  \item Why?
+    \begin{itemize}
+      \item Compile time checks lead to clear code.
+      \item You may get better performance.
+      \item No need for error handling.
+    \end{itemize}
+
+\pause
+\begin{block}{Bad}
+\begin{lstlisting}
+int bit_count = 0;
+for (index i=0; i; i <<= 1) { // Overflow is UB
+  ++bit_count;
+}
+if (bit_count < 32) {
+  std::cerr << "index is too small\n";
+}
+\end{lstlisting}
+\end{block}
+
+\pause
+\begin{block}{Good}
+\begin{lstlisting}
+static_assert(sizeof(index) >= 4);
+\end{lstlisting}
+\end{block}
+
+\end{itemize}
+\end{frame}

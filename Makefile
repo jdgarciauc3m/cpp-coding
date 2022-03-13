@@ -16,6 +16,7 @@ include guide/Makefile.def
 include 01-vuln/Makefile.def
 include 02-coding-std/Makefile.def
 include 03-cert-cpp/Makefile.def
+include 04-core-cpp/Makefile.def
 
 ALL_FINAL_PDF=\
 $(FINAL_DIR) \
@@ -42,3 +43,4 @@ include $(GUIDE_BASE)/Makefile.mk
 include $(VULN_BASE)/Makefile.mk
 include $(CODINGSTD_BASE)/Makefile.mk
 include $(CERTCPP_BASE)/Makefile.mk
+include $(CORECPP_BASE)/Makefile.mk
