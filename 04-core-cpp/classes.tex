@@ -1,0 +1,168 @@
+\section{C: Classes}
+
+\begin{frame}[t]{Guidelines on classes}
+\begin{itemize}
+  \item Classes are user defined types with many design options.
+
+  \mode<presentation>{\vfill\pause}
+  \item Guidelines:
+    \begin{itemize}
+      \item General guidelines on classes.
+      \item Concrete types.
+      \item Constructors, assignments, and destructors
+      \item Containers and other resource handles
+      \item Function objects and lambdas
+      \item Class hierarchies (OOP)
+      \item Overloading and overloaded operators
+      \item Unions
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Classes: General guidelines}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item C.1: Organize related data into structures (structs or classes)
+      \item C.2: Use class if the class has an invariant; use struct if the data members can vary independently
+      \item C.3: Represent the distinction between an interface and an implementation using a class
+      \item C.4: Make a function a member only if it needs direct access to the representation of a class
+      \item C.5: Place helper functions in the same namespace as the class they support
+      \item C.7: Don’t define a class or enum and declare a variable of its type in the same statement
+      \item C.8: Use class rather than struct if any member is non-public
+      \item C.9: Minimize exposure of members
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Concrete types}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item C.10: Prefer concrete types over class hierarchies
+      \item C.11: Make concrete types regular
+      \item C.12: Don’t make data members const or references
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Constructors, assignments, and destructors}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item C.20: If you can avoid defining any default operations, do
+      \item C.21: If you define or =delete any copy, move, or destructor function, define or =delete them all
+      \item C.22: Make default operations consistent
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Containers and other resource handles}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item C.100: Follow the STL when defining a container
+      \item C.101: Give a container value semantics
+      \item C.102: Give a container move operations
+      \item C.103: Give a container an initializer list constructor
+      \item C.104: Give a container a default constructor that sets it to empty
+      \item C.109: If a resource handle has pointer semantics, 
+            provide \cppkey{*} and \cppkey{->}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Function objects and lambdas}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item F.50: Use a lambda when a function won’t do (to capture local variables, or to write a local function)
+      \item F.52: Prefer capturing by reference in lambdas that will be used locally, including passed to algorithms
+      \item F.53: Avoid capturing by reference in lambdas that will be used non-locally, including returned, stored on the heap, or passed to another thread
+      \item ES.28: Use lambdas for complex initialization, especially of const variables
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Class hierarchies}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item C.120: Use class hierarchies to represent concepts with inherent hierarchical structure (only)
+      \item C.121: If a base class is used as an interface, make it a pure abstract class
+      \item C.122: Use abstract classes as interfaces when complete separation of interface and implementation is needed
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Classes in class hierarchies}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}\fontsize{8pt}{8pt}\selectfont
+      \item C.126: An abstract class typically doesn’t need a user-written constructor
+      \item C.127: A class with a virtual function should have a \cppkey{virtual} or \cppkey{protected} destructor
+      \item C.128: Virtual functions should specify exactly one of \cppkey{virtual}, \cppkey{override}, 
+            or \cppkey{final}
+      \item C.129: When designing a class hierarchy, distinguish between implementation inheritance and interface inheritance
+      \item C.130: For making deep copies of polymorphic classes prefer a virtual clone function instead of public copy construction/assignment
+      \item C.131: Avoid trivial getters and setters
+      \item C.132: Don’t make a function virtual without reason
+      \item C.133: Avoid protected data
+      \item C.134: Ensure all non-const data members have the same access level
+      \item C.135: Use multiple inheritance to represent multiple distinct interfaces
+      \item C.136: Use multiple inheritance to represent the union of implementation attributes
+      \item C.137: Use virtual bases to avoid overly general base classes
+      \item C.138: Create an overload set for a derived class and its bases with using
+      \item C.139: Use \cppkey{final} on classes sparingly
+      \item C.140: Do not provide different default arguments for a virtual function and an overrider
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Accessing objects in class hierarchies}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}\fontsize{9pt}{10pt}\selectfont
+      \item C.145: Access polymorphic objects through pointers and references
+      \item C.146: Use \cppkey{dynamic\_cast} where class hierarchy navigation is unavoidable
+      \item C.147: Use \cppkey{dynamic\_cast} to a reference type when failure to find the required class is considered an error
+      \item C.148: Use \cppkey{dynamic\_cast} to a pointer type when failure to find the required class is considered a valid alternative
+      \item C.149: Use \cppid{unique\_ptr} or \cppid{shared\_ptr} to avoid forgetting to delete objects created using new
+      \item C.150: Use \cppid{make\_unique()} to construct objects owned by \cppid{unique\_ptrs}
+      \item C.151: Use \cppid{make\_shared()} to construct objects owned by \cppid{shared\_ptrs}
+      \item C.152: Never assign a pointer to an array of derived class objects to a pointer to its base
+      \item C.153: Prefer virtual function to casting
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Overloading and overloaded operators}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item C.160: Define operators primarily to mimic conventional usage
+      \item C.161: Use non-member functions for symmetric operators
+      \item C.162: Overload operations that are roughly equivalent
+      \item C.163: Overload only for operations that are roughly equivalent
+      \item C.164: Avoid implicit conversion operators
+      \item C.165: Use using for customization points
+      \item C.166: Overload unary \cppkey{\&} only as part of a system of smart pointers and references
+      \item C.167: Use an operator for an operation with its conventional meaning
+      \item C.168: Define overloaded operators in the namespace of their operands
+      \item C.170: If you feel like overloading a lambda, use a generic lambda
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Unions}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item C.180: Use unions to save Memory
+      \item C.181: Avoid \textmark{naked} unions
+      \item C.182: Use anonymous unions to implement tagged unions
+      \item C.183: Don’t use a union for \textmark{type punning}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+

@@ -1,0 +1,71 @@
+\section{R: Resource Management}
+
+\begin{frame}[t]{Resource Management}
+\begin{itemize}
+  \item Resource management is a classical source of problems.
+  \item \textmark{Resource}: Anything that must be acquired and released.
+  \item Many kinds of resources: memory, file handles, sockets, locks, \ldots
+  \item Goal: Avoid leaks.
+
+  \mode<presentation>{\vfill\pause}
+  \item Guidelines:
+    \begin{itemize}
+      \item General rules.
+      \item Allocation and deallocation.
+      \item Smart pointers.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{General}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item R.1: Manage resources automatically using resource handles and 
+            \textmark{RAII} (Resource Acquisition Is Initialization)
+      \item R.2: In interfaces, use raw pointers to denote individual objects (only)
+      \item R.3: A raw pointer (a \cppkey{T*}) is non-owning
+      \item R.4: A raw reference (a \cppkey{T\&}) is non-owning
+      \item R.5: Prefer scoped objects, don’t heap-allocate unnecessarily
+      \item R.6: Avoid non-const global variables
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Allocation and deallocation}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item R.10: Avoid \cppid{malloc()} and \cppid{free()}
+      \item R.11: Avoid calling new and delete explicitly
+      \item R.12: Immediately give the result of an 
+            explicit resource allocation to a manager object
+      \item R.13: Perform at most one explicit resource allocation 
+            in a single expression statement
+      \item R.14: Avoid \cppkey{[]} parameters, prefer span
+      \item R.15: Always overload matched allocation/deallocation pairs
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Smart pointers}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \fontsize{9pt}{9pt}\selectfont
+      \item R.20: Use \cppid{unique\_ptr} or \cppid{shared\_ptr} to represent ownership
+      \item R.21: Prefer \cppid{unique\_ptr} over \cppid{shared\_ptr} 
+      \item       unless you need to share ownership
+      \item R.22: Use \cppid{make\_shared()} to make \cppid{shared\_ptrs}
+      \item R.23: Use \cppid{make\_unique()} to make \cppid{unique\_ptrs}
+      \item R.24: Use \cppid{std::weak\_ptr} to break cycles of \cppid{shared\_ptrs}
+      \item R.30: Take smart pointers as parameters only to explicitly express lifetime semantics
+      \item R.31: If you have non-std smart pointers, follow the basic pattern from \cppid{std}
+      \item R.32: Take a \cppid{unique\_ptr<widget>} parameter to express that a function assumes ownership of a widget
+      \item R.33: Take a \cppid{unique\_ptr<widget>\&} parameter to express that a function reseats the widget
+      \item R.34: Take a \cppid{shared\_ptr<widget>} parameter to express shared ownership
+      \item R.35: Take a \cppid{shared\_ptr<widget>\&} parameter to express that a function might reseat the shared pointer
+      \item R.37: Do not pass a pointer or reference obtained from an aliased smart pointer
+    \end{itemize}
+\end{itemize}
+\end{frame}

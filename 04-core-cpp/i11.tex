@@ -1,0 +1,93 @@
+\subsection{I11: Never transfer ownership by raw pointer or reference}
+
+\begin{frame}[t,fragile]{Resource ownership and pointers}
+\begin{itemize}
+  \item Returning a pointer to an allocated resource makes unclear who should
+        deallocate.
+
+\mode<presentation>{\vfill\pause}
+\begin{block}{Bad}
+\begin{lstlisting}
+image * load_image(std::string_view file_name) {
+  image * p_image = new image;
+  //...
+  return p_image;
+}
+
+void f() {
+  image * img = load_image("map.jpg");
+  //...
+  // Who's responsible for delete?
+}
+\end{lstlisting}
+\end{block}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Resource ownership and references}
+\begin{itemize}
+  \item Returning references make things harder.
+
+\mode<presentation>{\vfill\pause}
+\begin{block}{Bad}
+\begin{lstlisting}
+image & load_image(std::string_view file_name) {
+  image * p_image = new image;
+  //...
+  return *p_image;
+}
+
+void f() {
+  image & img = load_image("map.jpg");
+  //...
+  // Who's responsible for delete?
+}
+\end{lstlisting}
+\end{block}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Returning resources with smart pointers}
+\begin{itemize}
+  \item A smart pointer is a resource manager for memory.
+
+\mode<presentation>{\vfill\pause}
+\begin{block}{Good}
+\begin{lstlisting}
+std::unique_ptr<image>(std::string_view file_name) {
+  auto new_image = std::make_unique<image>(); // Allocates an image
+  // ...
+  return new_image;
+}
+
+void f() {
+  auto img = load_image("map.jpg");
+  //...
+} // Automatically deallocate img
+\end{lstlisting}
+\end{block}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Returning resources by value}
+\begin{itemize}
+  \item If the type supports move semantics, the return by value.
+
+\mode<presentation>{\vfill\pause}
+\begin{block}{Good}
+\begin{lstlisting}
+image load_image(std::string_view file_name) {
+  image new_image;
+  // ...
+  return new_image;
+}
+
+void f() {
+  auto img = load_image("map.jpg");
+  //...
+} 
+\end{lstlisting}
+\end{block}
+\end{itemize}
+\end{frame}

@@ -1,0 +1,29 @@
+\subsection{I5: Express preconditions}
+
+\begin{frame}[t,fragile]{Expressing preconditions}
+\begin{itemize}
+  \item \textmark{Precondition}: Conditions that must be meet 
+        for a function to work properly.
+  \item Preconditions can be expressed at function entry.
+    \begin{itemize}
+      \item You can use a library like GSL.
+      \item \url{https://github.com/Microsoft/GSL}
+    \end{itemize}
+\end{itemize}
+
+\mode<presentation>{\vfill\pause}
+\begin{block}{Good}
+\begin{lstlisting}
+double sqrt(double x) {
+  Expects(x>=0);
+  // ...
+}
+\end{lstlisting}
+\end{block}
+
+\mode<presentation>{\vfill\pause}
+\begin{itemize}
+  \item Enforcing: Cannot be enforced.
+\end{itemize}
+
+\end{frame}

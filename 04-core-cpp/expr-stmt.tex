@@ -1,0 +1,155 @@
+\section{ES: Expressions and statements}
+
+\begin{frame}[t]{Expressions and statements}
+\begin{itemize}
+  \item Expressions and statements are the low level part of code.
+  \item Declarations in local scopes are also statements.
+
+  \mode<presentation>{\vfill}
+  \item Guidelines:
+    \begin{itemize}
+      \item General guidelines.
+      \item Declarations.
+      \item Expressions.
+      \item Statements.
+      \item Arithmetic.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{General guidelines}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item ES.1: Prefer the standard library to other libraries and 
+            to \textmark{handcrafted code}
+      \item ES.2: Prefer suitable abstractions to direct use of language features
+      \item ES.3: Don’t repeat yourself, avoid redundant code
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Declarations (I)}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      %\fontsize{9pt}{9pt}\selectfont
+      \item ES.5: Keep scopes small
+      \item ES.6: Declare names in for-statement initializers and 
+            conditions to limit scope
+      \item ES.7: Keep common and local names short, 
+            and keep uncommon and non-local names longer
+      \item ES.8: Avoid similar-looking names
+      \item ES.9: Avoid \cppid{ALL\_CAPS} names
+      \item ES.10: Declare one name (only) per declaration
+      \item ES.11: Use \cppkey{auto} to avoid redundant repetition of type names
+      \item ES.12: Do not reuse names in nested scopes
+      \item ES.20: Always initialize an object
+      \item ES.21: Don’t introduce a variable (or constant) before you need to use it
+      \item ES.22: Don’t declare a variable until you have a value to initialize it with
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Declarations (II)}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item ES.23: Prefer the {}-initializer syntax
+      \item ES.24: Use a \cppid{unique\_ptr<T>} to hold pointers
+      \item ES.25: Declare an object \cppkey{const} or \cppkey{constexpr} 
+            unless you want to modify its value later on
+      \item ES.26: Don’t use a variable for two unrelated purposes
+      \item ES.27: Use \cppid{std::array} or \cppid{stack\_array} for arrays on the stack
+      \item ES.28: Use lambdas for complex initialization, especially of const variables
+      \item ES.30: Don’t use macros for program text manipulation
+      \item ES.31: Don’t use macros for constants or \textmark{functions}
+      \item ES.32: Use \cppid{ALL\_CAPS} for all macro names
+      \item ES.33: If you must use macros, give them unique names
+      \item ES.34: Don’t define a (C-style) variadic function
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Expressions (I)}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item ES.40: Avoid complicated expressions
+      \item ES.41: If in doubt about operator precedence, parenthesize
+      \item ES.42: Keep use of pointers simple and straightforward
+      \item ES.43: Avoid expressions with undefined order of evaluation
+      \item ES.44: Don’t depend on order of evaluation of function arguments
+      \item ES.45: Avoid \textmark{magic constants}; use symbolic constants
+      \item ES.46: Avoid narrowing conversions
+      \item ES.47: Use \cppkey{nullptr} rather than \cppid{0} or \cppid{NULL}
+      \item ES.48: Avoid casts
+      \item ES.49: If you must use a cast, use a named cast
+      \item ES.50: Don’t cast away const
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Expressions (II)}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item ES.55: Avoid the need for range checking
+      \item ES.56: Write \cppid{std::move()} only when you need to 
+            explicitly move an object to another scope
+      \item ES.60: Avoid \cppkey{new} and \cppkey{delete} outside resource 
+            management functions
+      \item ES.61: Delete arrays using \cppkey{delete[]} and non-arrays using delete
+      \item ES.62: Don’t compare pointers into different arrays
+      \item ES.63: Don’t slice
+      \item ES.64: Use the \cppid{T\{e\}} notation for construction
+      \item ES.65: Don’t dereference an invalid pointer
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Statements (I)}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item ES.70: Prefer a switch-statement to an if-statement when there is a choice
+      \item ES.71: Prefer a range-for-statement to a for-statement when there is a choice
+      \item ES.72: Prefer a for-statement to a while-statement when there is an obvious loop variable
+      \item ES.73: Prefer a while-statement to a for-statement when there is no obvious loop variable
+      \item ES.74: Prefer to declare a loop variable in the initializer part of a for-statement
+      \item ES.75: Avoid do-statements
+      \item ES.76: Avoid goto
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Statements (II)}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item ES.77: Minimize the use of break and continue in loops
+      \item ES.78: Don’t rely on implicit fallthrough in switch statements
+      \item ES.79: Use default to handle common cases (only)
+      \item ES.84: Don’t try to declare a local variable with no name
+      \item ES.85: Make empty statements visible
+      \item ES.86: Avoid modifying loop control variables inside the body of raw for-loops
+      \item ES.87: Don’t add redundant \cppid{==} or \cppid{!=} to conditions
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Arithmetic}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item ES.100: Don’t mix signed and unsigned arithmetic
+      \item ES.101: Use unsigned types for bit manipulation
+      \item ES.102: Use signed types for arithmetic
+      \item ES.103: Don’t overflow
+      \item ES.104: Don’t underflow
+      \item ES.105: Don’t divide by integer zero
+      \item ES.106: Don’t try to avoid negative values by using \cppid{unsigned}
+      \item ES.107: Don’t use unsigned for subscripts, prefer \cppid{gsl::index}
+    \end{itemize}
+\end{itemize}
+\end{frame}

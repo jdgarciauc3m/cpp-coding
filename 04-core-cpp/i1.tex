@@ -1,0 +1,38 @@
+\subsection{I1: Make interfaces explicit}
+
+\begin{frame}[t,fragile]{Explicit interfaces}
+\begin{itemize}
+  \item Assumptions that are not part of the interface are:
+    \begin{itemize}
+      \item Hard to test.
+      \item Very easily forgotten.
+    \end{itemize}
+\begin{block}{Bad}
+\begin{lstlisting}
+int round_value(double x) {
+  if (rounding == round_mode::up) { return std::ceil(x); }
+  else { return std::floor(x); }
+}
+\end{lstlisting}
+\end{block}
+
+\mode<presentation>{\vfill\pause}
+\begin{block}{Good: avoid invisible dependencies}
+\begin{lstlisting}
+int round_value(double x, round_mode rounding) {
+  if (rounding == round_mode::up) { return std::ceil(x); }
+  else { return std::floor(x); }
+}
+\end{lstlisting}
+\end{block}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Enforcemente}
+\begin{itemize}
+  \item Flag functions with control flow based on the value of variables
+        declared at namespace scope.
+  \item Flag functions that modify the value of variables at namespace scope.
+\end{itemize}
+\end{frame}

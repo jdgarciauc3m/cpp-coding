@@ -1,0 +1,72 @@
+\subsection{F2: A function should perform a single logical operation}
+
+\begin{frame}[t,fragile]{Multiple logical operations}
+\begin{itemize}
+  \item A function that performs a simple logical operation is easier to
+        understand, test and reuse.
+
+\mode<presentation>{\vfill\pause}
+\begin{block}{Bad}
+\begin{lstlisting}
+void read_and_print() {
+  int x;
+  std::cin >> x;
+  if (!std::cin) throw invalid_input{};
+  std::cout << "value: " << x << "\n";
+}
+\end{lstlisting}
+\end{block}
+
+  \mode<presentation>{\vfill\pause}
+  \item \textbad{Problems}:
+    \begin{itemize}
+      \item Monolithic approach.
+      \item Difficult to test.
+      \item Cannot be reused.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Breaking up int logical operations}
+\begin{itemize}
+  \item Divide in parametrized logical parts.
+
+\mode<presentation>{\vfill\pause}
+\begin{block}{Good}
+\begin{lstlisting}
+int read(std::istream & is) {
+  int x;
+  is >> x;
+  if (!is) throw invalid_input{};
+  return x;
+}
+
+void print(std::ostream & os, int x) {
+  os << "value: " << x << "\n";
+}
+
+void read_and_print() {
+  auto x = read(std::cin);
+  print(std::cout, x);
+}
+\end{lstlisting}
+\end{block}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Enforcement}
+\begin{itemize}
+  \item Consider functions with \textmark{out parameters} suspicious.
+    \begin{itemize}
+      \item Prefer returning by value.
+    \end{itemize}
+
+  \item Consider large functions suspicios.
+    \begin{itemize}
+      \item Break down into sub-operations.
+    \end{itemize}
+
+  \item Consider functions with 7 or more parameters suspicious.
+\end{itemize}
+\end{frame}

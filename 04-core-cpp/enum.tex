@@ -1,0 +1,25 @@
+\section{Enumerations}
+
+\begin{frame}[t]{Enum: Enumerations}
+\begin{itemize}
+  \item Enumerations define sets of integer values and their types.
+  \item Alternatives:
+    \begin{itemize}
+      \item \textgood{Plain enumerations}: Old enumerations inherited from C.
+      \item \cppkey{enum class}: Strongly typed enumerations.
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item Guidelines:
+    \begin{itemize}
+      \item Enum.1: Prefer enumerations over macros
+      \item Enum.2: Use enumerations to represent sets of related named constants
+      \item Enum.3: Prefer \cppkey{enum class}es over  \textmark{plain enums}
+      \item Enum.4: Define operations on enumerations for safe and simple use
+      \item Enum.5: Don’t use \cppid{ALL\_CAPS} for enumerators
+      \item Enum.6: Avoid unnamed enumerations
+      \item Enum.7: Specify the underlying type of an enumeration only when necessary
+      \item Enum.8: Specify enumerator values only when necessary
+    \end{itemize}
+\end{itemize}
+\end{frame}

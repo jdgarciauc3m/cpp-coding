@@ -1,0 +1,70 @@
+\section{E: Error Handling}
+
+\begin{frame}[t]{Error handling}
+\begin{itemize}
+  \item Error handling involves:
+    \begin{itemize}
+      \item Detecting an error
+      \item Transmitting information about an error to some handler code
+      \item Preserving a valid state of the program
+      \item Avoiding resource leaks
+    \end{itemize}
+
+  \mode<presentation>{\vfill\pause}
+  \item Goals of guidelines:
+    \begin{itemize}
+      \item Type violations (e.g., misuse of unions and casts)
+      \item Resource leaks (including memory leaks)
+      \item Bounds errors
+      \item Lifetime errors (e.g., accessing an object after is has been deleted)
+      \item Complexity errors (logical errors made likely by overly complex expression of ideas)
+      \item Interface errors (e.g., an unexpected value is passed through an interface)
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Error handling}
+\begin{itemize}
+  \item Guidelines:
+  \begin{itemize}
+      \item E.1: Develop an error-handling strategy early in a design
+      \item E.2: Throw an exception to signal that a function can’t perform its assigned task
+      \item E.3: Use exceptions for error handling only
+      \item E.4: Design your error-handling strategy around invariants
+      \item E.5: Let a constructor establish an invariant, and throw if it cannot
+      \item E.6: Use RAII to prevent leaks
+      \item E.7: State your preconditions
+      \item E.8: State your postconditions
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Error handling}
+\begin{itemize}
+  \item Guidelines:
+  \begin{itemize}
+      \item E.12: Use noexcept when exiting a function because of a throw is impossible or unacceptable
+      \item E.13: Never throw while being the direct owner of an object
+      \item E.14: Use purpose-designed user-defined types as exceptions (not built-in types)
+      \item E.15: Throw by value, catch exceptions from a hierarchy by reference
+      \item E.16: Destructors, deallocation, and swap must never fail
+      \item E.17: Don’t try to catch every exception in every function
+      \item E.18: Minimize the use of explicit try/catch
+      \item E.19: Use a \cppid{final\_action} object to express cleanup if no suitable resource handle is available
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Error handling}
+\begin{itemize}
+  \item Guidelines:
+  \begin{itemize}
+      \item E.25: If you can’t throw exceptions, simulate RAII for resource management
+      \item E.26: If you can’t throw exceptions, consider failing fast
+      \item E.27: If you can’t throw exceptions, use error codes systematically
+      \item E.28: Avoid error handling based on global state (e.g. \cppid{errno})
+      \item E.30: Don’t use exception specifications
+      \item E.31: Properly order your catch-clauses
+  \end{itemize}
+\end{itemize}
+\end{frame}

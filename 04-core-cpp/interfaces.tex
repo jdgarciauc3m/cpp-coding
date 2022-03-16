@@ -1,0 +1,46 @@
+\section{I: Interfaces}
+
+\begin{frame}[t]{Interfaces Guidelines}
+\begin{itemize}
+  \item Interface as contract between two parts of a prorgram.
+  \item Good interfaces essential aspect of code organization.
+
+  \mode<presentation>{\vfill\pause}
+  \item Guidelines:
+  \begin{itemize}
+    \item I.1: Make interfaces explicit
+    \item I.2: Avoid non-const global variables
+    \item I.3: Avoid singletons
+    \item I.4: Make interfaces precisely and strongly typed
+    \item I.5: State preconditions (if any)
+    \item I.6: Prefer Expects() for expressing preconditions
+    \item I.7: State postconditions
+    \item I.8: Prefer Ensures() for expressing postconditions
+    \item I.9: If an interface is a template, document its parameters using concepts
+    \item I.10: Use exceptions to signal a failure to perform a required task
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\input{04-core-cpp/i1}
+\input{04-core-cpp/i5}
+
+\begin{frame}[t]{Interfaces guidelines (II)}
+\begin{itemize}
+  \item More guidelines:
+  \begin{itemize}
+    \item I.11: Never transfer ownership by a raw pointer (\cppid{T*}) or reference (\cppid{T\&})
+    \item I.12: Declare a pointer that must not be null as \cppid{not\_null}
+    \item I.13: Do not pass an array as a single pointer
+    \item I.22: Avoid complex initialization of global objects
+    \item I.23: Keep the number of function arguments low
+    \item I.24: Avoid adjacent parameters that can be invoked by the same arguments in either order with different meaning
+    \item I.25: Prefer empty abstract classes as interfaces to class hierarchies
+    \item I.26: If you want a cross-compiler ABI, use a C-style subset
+    \item I.27: For stable library ABI, consider the Pimpl idiom
+    \item I.30: Encapsulate rule violations
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\input{04-core-cpp/i11}

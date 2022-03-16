@@ -1,0 +1,37 @@
+\subsection{F56: Avoid unnecessary condition nesting}
+
+\begin{frame}[t,fragile]{Condition nesting}
+\begin{itemize}
+  \item Shallow nesting of conditions makes the code easier to follow.
+  \item It also makes the intent clearer
+\end{itemize}
+
+\mode<presentation>{\vfill\pause}
+
+\begin{columns}[T]
+
+\column{.5\textwidth}
+\begin{block}{Bad}
+\begin{lstlisting}
+void f() {
+  if (valid()) {
+    if (switched_on()) {
+      run_task();
+    }
+  }
+}
+\end{lstlisting}
+\end{block}
+
+\column{.5\textwidth}
+\pause
+\begin{block}{Good}
+\begin{lstlisting}
+void f() {
+  if (!(valid() && switched_on())) return;
+  run_task();
+}
+\end{lstlisting}
+\end{block}
+\end{columns}
+\end{frame}

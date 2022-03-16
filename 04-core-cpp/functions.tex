@@ -1,0 +1,111 @@
+\section{F: Functions}
+
+\begin{frame}[t]{Functions}
+\begin{itemize}
+  \item A \textgood{function} specifies an \textmark{action} or a \textmark{computation} 
+        that takes the system from one consistent state to the next.
+
+  \mode<presentation>{\vfill}
+  \item Functions are the fundamental building block of programs.
+
+  \mode<presentation>{\vfill\pause}
+  \item Guidelines on functions:
+    \begin{itemize}
+      \item Guidelines on function definition.
+      \item Guidelines on parameter passing expressions.
+      \item Guidelines on parameter passing semantics.
+      \item Guidelines on value return semantics.
+      \item Other guidelines.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Function definition}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item F.1: \emph{Package} meaningful operations as carefully named functions
+      \item F.2: A function should perform a single logical operation
+      \item F.3: Keep functions short and simple
+      \item F.4: If a function might have to be evaluated at compile time, declare it \cppkey{constexpr}
+      \item F.5: If a function is very small and time-critical, declare it \cppkey{inline}
+      \item F.6: If your function must not throw, declare it \cppkey{noexcept}
+      \item F.7: For general use, take \cppid{T*} or \cppid{T\&} arguments rather than smart pointers
+      \item F.8: Prefer pure functions
+      \item F.9: Unused parameters should be unnamed
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\input{04-core-cpp/f2}
+
+\begin{frame}[t]{Function parameter passing expressions}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item F.15: Prefer simple and conventional ways of passing information
+      \item F.16: For \textmark{in} parameters, pass cheaply-copied types by value and 
+            others by reference to const
+      \item F.17: For \textmark{in-out} parameters, pass by reference to non-const
+      \item F.18: For \textmark{will-move-from} parameters, pass by \cppid{X\&\&} and 
+            \cppid{std::move} the parameter
+      \item F.19: For \textmark{forward} parameters, 
+            pass by \cppid{TP\&\&} and only \cppid{std::forward} the parameter
+      \item F.20: For \textmark{out} output values, prefer return values to output parameters
+      \item F.21: To return multiple \textmark{out} values, prefer returning a struct or tuple
+      \item F.60: Prefer \cppid{T*} over \cppid{T\&} when \textmark{no argument} is a valid option
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\input{04-core-cpp/f20}
+
+\begin{frame}[t]{Function parameter passing semantics}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item F.22: Use \cppid{T*} or \cppid{owner<T*>} to designate a single object
+      \item F.23: Use a \cppid{not\_null<T>} to indicate that \textmark{null} is not a valid value
+      \item F.24: Use a \cppid{span<T>} or a \cppid{span\_p<T>} to designate a half-open sequence
+      \item F.25: Use a \cppid{zstring} or a \cppid{not\_null<zstring>} to designate a C-style string
+      \item F.26: Use a \cppid{unique\_ptr<T>} to transfer ownership where a pointer is needed
+      \item F.27: Use a \cppid{shared\_ptr<T>} to share ownership
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Function value return semantics}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item F.42: Return a \cppid{T*} to indicate a position (only)
+      \item F.43: Never (directly or indirectly) return a pointer or a reference to a local object
+      \item F.44: Return a \cppid{T\&} when copy is undesirable and 
+                  \textmark{returning no object} isn’t needed
+      \item F.45: Don’t return a \cppid{T\&\&}
+      \item F.46: \cppkey{int} is the return type for \cppid{main()}
+      \item F.47: Return \cppid{T\&} from assignment operators
+      \item F.48: Don’t return \cppid{std::move(local)}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Other guidelines}
+\begin{itemize}
+  \item Guidelines:
+    \begin{itemize}
+      \item F.50: Use a lambda when a function won’t do 
+            (to capture local variables, or to write a local function)
+      \item F.51: Where there is a choice, prefer default arguments over overloading
+      \item F.52: Prefer capturing by reference in lambdas that will be used locally, 
+            including passed to algorithms
+      \item F.53: Avoid capturing by reference in lambdas that will be used non-locally, 
+            including returned, stored on the heap, or passed to another thread
+      \item F.54: If you capture \cppkey{this}, capture all variables explicitly (no default capture)
+      \item F.55: Don’t use \cppid{va\_arg} arguments
+      \item F.56: Avoid unnecessary condition nesting
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\input{04-core-cpp/f56}

@@ -1,0 +1,60 @@
+\subsection{F20: For out output values, prefer return values to output parameters }
+
+\begin{frame}[t,fragile]{Function output}
+\begin{itemize}
+  \item A function output parameter is difficult to identify in source code.
+
+\mode<presentation>{\vfill\pause}
+\begin{block}{Bad}
+\begin{lstlisting}
+void convert(const image & in, image & out) {
+  //...
+}
+
+void f() {
+  image img1 = load("input.jpg");
+  image img2;
+  convert_image(img1, img2); // Which is the input? And the output?
+  //...
+}
+\end{lstlisting}
+\end{block}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Returning function output}
+\begin{itemize}
+  \item A function result is easy to identify in source code.
+
+\mode<presentation>{\vfill\pause}
+\begin{block}{Good}
+\begin{lstlisting}
+image convert(const image & img) {
+  //...
+  return result;
+}
+
+void f() {
+  image img1 = load_image("input.jpg");
+  image img2 = covert_image(img1);
+  //...
+}
+\end{lstlisting}
+\end{block}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Enforcement}
+\begin{itemize}
+
+  \item Flag reference to non-const parameters that are not read before being written to 
+        and are a type that could be cheaply returned
+
+  \item Flag returning a const value.
+    \begin{itemize}
+      \item Remove const to return a non-const value instead.
+    \end{itemize}
+
+\end{itemize}
+\end{frame}
